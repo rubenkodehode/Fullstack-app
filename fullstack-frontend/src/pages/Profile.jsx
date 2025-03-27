@@ -1,19 +1,10 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import api from "../api";
+import "./Form.css";
 
 const Profile = () => {
-  const navigate = useNavigate();
   const [formData, setFormData] = useState({ firstName: "", lastName: "" });
   const [message, setMessage] = useState("");
-
-  // Sjekk om bruker er logget inn
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login"); // Hvis ikke logget inn, send til login
-    }
-  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,46 +12,40 @@ const Profile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = localStorage.getItem("token");
-
     try {
+      const token = localStorage.getItem("token");
       await api.post("/edit", formData, {
-        headers: { Authorization: `Bearer ${token}` },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
-      setMessage("Profile updated successfully!");
+      setMessage("Profilen ble oppdatert!");
     } catch (error) {
-      setMessage(error.response?.data?.message || "Something went wrong");
+      setMessage(error.response?.data?.message || "Noe gikk galt");
     }
   };
 
   return (
-    <div>
-      <h2>Edit Profile</h2>
+    <div className="form-container">
+      <h2>Rediger profil</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="firstName"
-          placeholder="First Name"
+          placeholder="Fornavn"
           onChange={handleChange}
         />
         <input
           type="text"
           name="lastName"
-          placeholder="Last Name"
+          placeholder="Etternavn"
           onChange={handleChange}
         />
-        <button type="submit">Update Profile</button>
+        <button type="submit">Lagre endringer</button>
       </form>
       <p>{message}</p>
-      <button
-        onClick={() => {
-          localStorage.removeItem("token");
-          navigate("/login"); // Logg ut og gå til login
-        }}>
-        Logout
-      </button>
     </div>
   );
 };
 
-export default Profile;
+export default EditProfile;

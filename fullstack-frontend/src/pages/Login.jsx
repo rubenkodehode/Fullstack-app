@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../api";
+import "./Form.css";
 
 const Login = () => {
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -15,31 +16,31 @@ const Login = () => {
     e.preventDefault();
     try {
       const res = await api.post("/login", formData);
-      localStorage.setItem("token", res.data.token); // Lagre token
+      localStorage.setItem("token", res.data.token);
       setMessage("Login successful!");
-      setTimeout(() => navigate("/profile"), 2000); // Gå til profil etter 2 sek
+      setTimeout(() => navigate("/profile"), 1500);
     } catch (error) {
-      setMessage(error.response?.data?.message || "Something went wrong");
+      setMessage(error.response?.data?.message || "Noe gikk galt");
     }
   };
 
   return (
-    <div>
-      <h2>Login</h2>
+    <div className="form-container">
+      <h2>Logg inn</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="username"
-          placeholder="Username"
+          placeholder="Brukernavn"
           onChange={handleChange}
         />
         <input
           type="password"
           name="password"
-          placeholder="Password"
+          placeholder="Passord"
           onChange={handleChange}
         />
-        <button type="submit">Login</button>
+        <button type="submit">Logg inn</button>
       </form>
       <p>{message}</p>
     </div>
