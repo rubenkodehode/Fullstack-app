@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import api from "../api";
 import "./Form.css";
 
 const Profile = () => {
   const [formData, setFormData] = useState({ firstName: "", lastName: "" });
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -23,6 +25,11 @@ const Profile = () => {
     } catch (error) {
       setMessage(error.response?.data?.message || "Noe gikk galt");
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
   };
 
   return (
@@ -44,8 +51,12 @@ const Profile = () => {
         <button type="submit">Lagre endringer</button>
       </form>
       <p>{message}</p>
+
+      <button className="logout-btn" onClick={handleLogout}>
+        Logg ut
+      </button>
     </div>
   );
 };
 
-export default EditProfile;
+export default Profile;

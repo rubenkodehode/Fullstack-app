@@ -5,15 +5,15 @@ import "./Register.css"; // 👈 Importer vanlig CSS
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: "",
-    address: "",
-    address2: "",
-    postnr: "",
-    fdato: "",
-    personnr: "",
+    Username: "",
+    Password: "",
+    FirstName: "",
+    LastName: "",
+    Address: "",
+    Address2: "",
+    PostNr: "",
+    Fdato: "",
+    Personnr: "",
   });
 
   const [message, setMessage] = useState("");
@@ -40,55 +40,55 @@ const Register = () => {
       <form onSubmit={handleSubmit} className="register-form">
         <input
           type="text"
-          name="username"
+          name="Username"
           placeholder="Brukernavn"
           onChange={handleChange}
         />
         <input
           type="password"
-          name="password"
+          name="Password"
           placeholder="Passord"
           onChange={handleChange}
         />
         <input
           type="text"
-          name="firstName"
+          name="FirstName"
           placeholder="Fornavn"
           onChange={handleChange}
         />
         <input
           type="text"
-          name="lastName"
+          name="LastName"
           placeholder="Etternavn"
           onChange={handleChange}
         />
         <input
           type="text"
-          name="address"
+          name="Address"
           placeholder="Adresse"
           onChange={handleChange}
         />
         <input
           type="text"
-          name="address2"
+          name="Address2"
           placeholder="Adresse 2"
           onChange={handleChange}
         />
         <input
           type="number"
-          name="postnr"
+          name="PostNr"
           placeholder="Postnummer"
           onChange={handleChange}
         />
         <input
           type="date"
-          name="fdato"
+          name="Fdato"
           placeholder="Fødselsdato"
           onChange={handleChange}
         />
         <input
           type="number"
-          name="personnr"
+          name="Personnr"
           placeholder="Personnr (5 siffer)"
           onChange={handleChange}
         />
