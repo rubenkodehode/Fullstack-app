@@ -25,8 +25,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formattedDate = new Date(formData.Fdato).toISOString().split("T")[0];
+
     try {
-      await api.post("/create", formData);
+      await api.post("/create", { ...formData, Fdato: formattedDate });
       setMessage("Bruker registrert!");
       setTimeout(() => navigate("/login"), 2000);
     } catch (error) {
